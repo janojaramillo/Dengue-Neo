@@ -1,9 +1,9 @@
 /* Dengue Neonatal · CDSS — Service Worker
-   Dr. Jano Jaramillo · v1.0 · noviembre 2026
+   Dr. Jano Jaramillo · v1.1 · noviembre 2026
    Estrategia: app shell en caché al instalar (cache-first);
    fuentes de Google en caché en tiempo de ejecución (stale-while-revalidate).
    Para publicar una actualización: cambiar VERSION. */
-const VERSION = 'dengue-neo-v1.0.0';
+const VERSION = 'dengue-neo-v1.1.0';
 const SHELL = ['./', './index.html', './sw.js'];
 const FONT_CACHE = 'dengue-neo-fonts';
 

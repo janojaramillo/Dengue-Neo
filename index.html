@@ -85,8 +85,8 @@ main{max-width:760px;margin:0 auto;padding:14px 16px calc(env(safe-area-inset-bo
 section.tab{display:none;animation:fade .25s ease}
 section.tab.on{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}}
-nav.bot{position:fixed;left:0;right:0;bottom:0;z-index:30;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(6,1fr);padding:6px 4px calc(env(safe-area-inset-bottom) + 6px)}
-nav.bot button{background:none;border:0;padding:6px 0 4px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10.5px;font-weight:600;color:var(--mut);cursor:pointer}
+nav.bot{position:fixed;left:0;right:0;bottom:0;z-index:30;background:color-mix(in srgb,var(--card) 92%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(7,1fr);padding:6px 4px calc(env(safe-area-inset-bottom) + 6px)}
+nav.bot button{background:none;border:0;padding:6px 0 4px;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;font-weight:600;color:var(--mut);cursor:pointer}
 nav.bot button i{font-style:normal;font-size:19px;line-height:1}
 nav.bot button.on{color:var(--terra)}
 nav.bot button.on i{transform:translateY(-1px)}
@@ -179,6 +179,27 @@ details.acc .body{padding:0 14px 14px;font-size:14px}
 .foot{margin-top:18px;font-size:11.5px;color:var(--mut);text-align:center;line-height:1.5}
 .sum{font-size:13.5px;color:var(--ink2)}
 .copy{margin-top:8px}
+.case{background:var(--card);border:1px solid var(--line);border-radius:var(--r);margin:0 0 14px;overflow:hidden}
+.case .ch{padding:14px;color:#fff;position:relative}
+.case .ch .cn{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;opacity:.85}
+.case .ch h3{font-family:var(--serif);font-size:21px;color:#fff;margin:3px 0 2px}
+.case .ch p{margin:0;font-size:13px;opacity:.92}
+.case .cb{padding:14px}
+.case .vig{font-size:14.5px;line-height:1.6}
+.case .data{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:12px 0}
+.case .data div{background:var(--soft);border-radius:10px;padding:7px 9px;font-size:12px}
+.case .data b{display:block;font-family:var(--mono);font-size:14px;color:var(--ink)}
+.case details.qa{border-top:1px solid var(--line);padding:2px 0}
+.case details.qa summary{list-style:none;cursor:pointer;padding:10px 0;font-weight:600;font-size:14px;display:flex;gap:8px}
+.case details.qa summary::-webkit-details-marker{display:none}
+.case details.qa summary:before{content:"?";font-family:var(--mono);color:var(--terra);font-weight:700}
+.case details.qa[open] summary:before{content:"✓"}
+.case details.qa .a{font-size:13.5px;color:var(--ink2);padding:0 0 10px 18px}
+.case .trap{margin-top:10px;font-size:13px;border-radius:10px;padding:10px;background:color-mix(in srgb,var(--bad) 8%,transparent);border:1px dashed color-mix(in srgb,var(--bad) 40%,transparent)}
+.case .trap b{color:var(--bad)}
+.case .load{margin-top:12px}
+.casehint{font-size:13px;margin:-4px 0 12px}
+.casehint a{color:var(--terra);font-weight:600;text-decoration:none}
 @media print{nav.bot,header.app,#cover{display:none!important}section.tab{display:block!important}}
 </style>
 </head>
@@ -187,7 +208,7 @@ details.acc .body{padding:0 14px 14px;font-size:14px}
 <!-- ===================== CARÁTULA ===================== -->
 <div id="cover" role="dialog" aria-label="Carátula">
   <div class="glow"></div><div class="grain"></div>
-  <div class="cv-top"><span><b>CDSS</b> · Neonatología</span><span>v1.0 · Nov 2026</span></div>
+  <div class="cv-top"><span><b>CDSS</b> · Neonatología</span><span>v1.1 · Nov 2026</span></div>
   <div class="cv-stage">
     <svg viewBox="0 0 420 420" aria-hidden="true">
       <defs>
@@ -237,6 +258,7 @@ details.acc .body{padding:0 14px 14px;font-size:14px}
 <!-- ============ 1. EVALUAR ============ -->
 <section class="tab on" id="t-eval" data-title="Evaluación del paciente">
   <div class="h-sec"><div class="k">Paso a paso</div><h2>Evaluar al recién nacido</h2><p>Llene lo que tenga. La clasificación, la ubicación y el plan hídrico se recalculan en vivo.</p></div>
+  <p class="casehint muted">¿Docencia? <a href="#" id="goCases">Abrir los 5 casos clínicos →</a></p>
 
   <div class="card">
     <h3><span class="n">01</span>Vía de adquisición</h3>
@@ -606,9 +628,15 @@ details.acc .body{padding:0 14px 14px;font-size:14px}
     <p class="muted">CDSS de apoyo a la decisión clínica. No sustituye el juicio del médico tratante ni la norma nacional vigente. Verifique dosis con el formulario de su unidad. Funciona sin conexión una vez instalado.</p>
     <p class="muted" id="swState">Estado sin conexión: comprobando…</p>
   </div>
-  <div class="foot">Dr. Jano Jaramillo — Médico Pediatra y Neonatólogo · Posgrado en Trastornos del Aprendizaje<br>Sala de Neonatología · Hospital Dr. Cecilio Castillero · Chitré, Herrera, Panamá<br>v1.0 · noviembre 2026</div>
+  <div class="foot">Dr. Jano Jaramillo — Médico Pediatra y Neonatólogo · Posgrado en Trastornos del Aprendizaje<br>Sala de Neonatología · Hospital Dr. Cecilio Castillero · Chitré, Herrera, Panamá<br>v1.1 · noviembre 2026</div>
 </section>
 
+
+<!-- ============ 7. CASOS ============ -->
+<section class="tab" id="t-cas" data-title="Casos clínicos">
+  <div class="h-sec"><div class="k">Docencia y autoevaluación</div><h2>Cinco casos, cinco grados</h2><p>Casos descriptivos ficticios, construidos con los patrones de la literatura, que recorren el espectro del dengue neonatal: del expuesto asintomático al dengue grave atípico. Lea la viñeta, responda mentalmente, abra las respuestas y cargue el caso en el evaluador para comparar.</p></div>
+  <div id="cases"></div>
+</section>
 </main>
 
 <nav class="bot" id="nav">
@@ -617,6 +645,7 @@ details.acc .body{padding:0 14px 14px;font-size:14px}
   <button data-t="t-cli"><i>🧬</i>Clínica</button>
   <button data-t="t-red"><i>⚑</i>Alarma</button>
   <button data-t="t-dx"><i>🔬</i>Dx</button>
+  <button data-t="t-cas"><i>📋</i>Casos</button>
   <button data-t="t-mas"><i>≡</i>Más</button>
 </nav>
 
@@ -843,6 +872,86 @@ const DDX=[
  {n:'Policitemia neonatal',e:'Falso aumento del Hto',p:'Hto venoso &gt; 65 % desde el nacimiento; hijo de madre diabética, PEG, pinzamiento tardío.',c:'La fuga produce aumento relativo sobre el basal con plaquetas en caída.',q:'¿El Hto estaba alto desde el primer día o subió con el cuadro?'}
 ];
 $('#ddx').innerHTML=DDX.map(d=>`<details class="acc ddx"><summary>${d.n} <span class="ev">${d.e}</span></summary><div class="body"><div class="row"><div class="fv p"><b>A favor</b>${d.p}</div><div class="fv c"><b>En contra</b>${d.c}</div></div><div class="q"><b>Pregunta discriminante:</b> ${d.q}</div></div></details>`).join('');
+
+/* ---------- Casos clínicos ---------- */
+const CASES=[
+{id:1,cls:'v0',tag:'Expuesto asintomático',title:'El niño que parecía sano',sub:'Madre virémica el día del parto',
+vig:'Madre de 29 años, G2P1, 39 semanas. Tres días antes del parto inicia fiebre de 39 °C, mialgias y cefalea; NS1 positivo en el centro de salud. Ingresa en trabajo de parto aún febril, con plaquetas de 88 000. Parto vaginal sin complicaciones. Varón de 3200 g, Apgar 9/9. Al día 1 de vida está rosado, activo, con succión vigorosa, afebril. Hemograma: Hto 54 %, plaquetas 210 000, leucocitos 13 500.',
+data:[['Inicio materno','3 d antes del parto'],['Confirmación','NS1 +'],['Peso / EG','3200 g · 39 sem'],['Día de vida','1'],['Hto','54 %'],['Plaquetas','210 000']],
+qa:[
+['¿Cómo se clasifica y dónde debe estar?','<b>Recién nacido expuesto asintomático</b> con exposición perinatal de alto riesgo: la madre enfermó dentro de la ventana de 15 días antes a 48 h después del parto, y estaba virémica al nacer. Riesgo de transmisión vertical cercano al 20 %. Ubicación: alojamiento conjunto con observación hospitalaria.'],
+['¿Se suspende la lactancia?','No. Se ha detectado ARN viral en leche, pero no hay transmisión clínica demostrada por esta vía y la leche aporta anticuerpos. La madre, si está estable, amamanta.'],
+['¿Qué pide y por cuánto tiempo lo vigila?','RT‑PCR o NS1 en sangre de cordón y placenta (o suero del RN). Hemograma basal (ya está: será la referencia de su Hto) y repetir a las 48–72 h. Signos vitales cada 4–6 h. Hospitalización mínima de 48–72 h y control hasta el día 14: en la revisión de Sirinavin la fiebre neonatal debutó entre los días 1 y 11, con mediana en el día 4.'],
+['Desenlace','Al día 4 la madre avisa que el niño "está caliente". Pase al caso 2.']],
+trap:'<b>Trampa:</b> darle el alta a las 24 h "porque está perfecto". El neonato perinatal casi nunca tiene síntomas al nacer; el debut llega cuando ya está en casa.',
+load:{via:'vert',matWhen:'w7',matConf:'ns1',peso:3200,eg:39,ddv:1,hto0:54,hto1:54,plq0:210,plq1:210,ck:[]}},
+
+{id:2,cls:'v1',tag:'Sin signos de alarma',title:'Fiebre al cuarto día',sub:'El mismo niño, 72 horas después',
+vig:'El niño del caso 1, ahora en el día 4 de vida. Temperatura 38,4 °C, exantema maculopapular tenue en tronco, succión conservada, diuresis normal (2,5 mL/kg/h). FC 158, llenado capilar 2 s, abdomen blando sin hepatomegalia. Hemograma: Hto 55 % (basal 54 %), plaquetas 98 000 (basal 210 000), leucocitos 4200 con linfocitosis. PCR 8 mg/L, procalcitonina pendiente.',
+data:[['Día de vida','4'],['Temperatura','38,4 °C'],['Hto','54 → 55 %'],['Plaquetas','210 → 98 mil'],['Leucocitos','4200'],['Diuresis','2,5 mL/kg/h']],
+qa:[
+['¿Cómo se clasifica?','<b>Dengue probable sin signos de alarma</b>. Fiebre, exantema, leucopenia y trombocitopenia en un hijo de madre virémica, dentro de la ventana de debut. Sin hemoconcentración (Hto +2 %), sin signos de fuga ni de hipoperfusión.'],
+['¿Antibióticos sí o no?','Sí, de forma empírica, mientras no pueda descartarse sepsis: hemocultivo, procalcitonina y antibióticos según protocolo, con suspensión a las 36–48 h si los cultivos son negativos. El dengue y la sepsis se manejan en paralelo, no en secuencia.'],
+['¿Líquidos IV "para prevenir" el choque?','No. Se alimenta bien y orina bien: vía enteral a libre demanda. Hidratar de más antes de la fuga solo deja más líquido para extravasar. Paracetamol 10 mg/kg cada 6 h si la fiebre lo incomoda. Hemograma cada 12 h (plaquetas < 100 000) y RT‑PCR/NS1 en suero hoy; IgM desde el quinto día de enfermedad.'],
+['¿Qué vigila en las próximas 48 h?','La fase crítica: rechazo del alimento, hepatomegalia, Hto en ascenso con plaquetas en caída, derrames en POCUS, diuresis. Cuando la fiebre cede no ha terminado: es cuando empieza la fuga.']],
+trap:'<b>Trampa:</b> la PCR de 8 mg/L tranquiliza sobre la sepsis, pero no la descarta en las primeras horas. Y transfundir plaquetas a 98 000 en un niño que no sangra no tiene ninguna indicación.',
+load:{via:'vert',matWhen:'w7',matConf:'ns1',peso:3200,eg:39,ddv:4,hto0:54,hto1:55,plq0:210,plq1:98,diu:2.5,ck:['fiebre','rash','leuco']}},
+
+{id:3,cls:'v2',tag:'Con signos de alarma',title:'La vesícula engrosada',sub:'Prematuro tardío con fuga incipiente',
+vig:'Mujer de 34 semanas, 2500 g, día 5 de vida. Su madre tuvo dengue con signos de alarma (DENV‑3 por RT‑PCR) que inició 6 días antes de una cesárea por sufrimiento fetal. Hoy rechaza dos tomas, está más dormida y vomitó una vez. Hígado a 3 cm del reborde. FC 176, llenado capilar 2–3 s, PA normal. POCUS: pared vesicular engrosada y edematosa, derrame pleural derecho pequeño, función ventricular normal. Hto 48 → 57 %, plaquetas 120 000 → 45 000 en 24 h. Lactato 2,4 mmol/L. Diuresis 1,1 mL/kg/h.',
+data:[['Peso / EG','2500 g · 34 sem'],['Día de vida','5'],['Hto','48 → 57 % (+19 %)'],['Plaquetas','120 → 45 mil (−63 %)'],['Lactato','2,4 mmol/L'],['POCUS','Vesícula edematosa + derrame']],
+qa:[
+['¿Cómo se clasifica?','<b>Dengue con signos de alarma</b>: letargia, rechazo del alimento, hepatomegalia, líquido en serosas por POCUS, Hto en ascenso con caída rápida de plaquetas y lactato en ascenso. La madre con dengue grave suma riesgo. Está entrando en la fase crítica.'],
+['¿Cuánto líquido y de qué tipo?','Cristaloide isotónico escalonado (cargue el caso: el evaluador calcula para 2,5 kg y día 5). Paso 1: ≈ 7,8 mL/kg/h por 1–2 h; paso 2: ≈ 7 mL/kg/h por 2–4 h; luego mantenimiento. Base de dextrosa al 10 % para VIG ≈ 5 mg/kg/min y el resto con SSN 0,9 % o Ringer lactato. Repetir Hto al terminar cada paso. Nada de coloides.'],
+['¿Transfunde plaquetas con 45 000?','No, si no sangra. La OMS 2025 desaconseja la transfusión profiláctica en dengue. El umbral neonatal de consenso (PlaNeT‑2) es 25 000 en prematuros de menos de 32 semanas; esta niña tiene 34. Reserve plaquetas y glóbulos rojos, y pida TP, TTPa y fibrinógeno.'],
+['¿Dónde?','UCIN: monitorización continua, signos vitales cada 1–2 h, diuresis horaria, Hto y plaquetas cada 6–12 h, glucemia cada 4–6 h, POCUS seriado.']],
+trap:'<b>Trampa:</b> un Hto de 57 % "es normal para un neonato". El rango absoluto engaña; lo que importa es el ascenso del 19 % sobre su propio basal junto a la caída de plaquetas.',
+load:{via:'vert',matWhen:'w7',matConf:'ns1',matSev:true,peso:2500,eg:34,ddv:5,hto0:48,hto1:57,plq0:120,plq1:45,lac:2.4,diu:1.1,ck:['fiebre','leuco','letar','vom','hep','fluid','taq']}},
+
+{id:4,cls:'v3',tag:'Grave · choque',title:'La presión que no bajaba',sub:'Choque compensado y un Hto que traiciona',
+vig:'Varón de término, 3100 g, día 6. La madre tuvo fiebre 2 días antes del parto, "un virus", sin pruebas. Fue dado de alta al día 2. Hoy reingresa: frío al tacto, quejumbroso, FC 192, llenado capilar 4 s, pulsos periféricos débiles, PA 62/40 (PAM 47). Abdomen distendido con ascitis en POCUS, derrames pleurales bilaterales, VI con buena contractilidad y poco lleno. Hto 52 % al alta → 64 % hoy. Plaquetas 28 000. Lactato 4,8 mmol/L. Diuresis 0,4 mL/kg/h. No hay sangrado visible.',
+data:[['Peso / EG','3100 g · término'],['Día de vida','6'],['Hto','52 → 64 % (+23 %)'],['Plaquetas','28 000'],['Lactato','4,8 mmol/L'],['LLC / FC','4 s · 192/min']],
+qa:[
+['¿Cómo se clasifica?','<b>Dengue grave con choque compensado</b>: PA conservada con hipoperfusión franca (llenado capilar 4 s, taquicardia, extremidades frías, lactato alto, oliguria). Exposición posible: fiebre materna periparto sin diagnóstico en temporada epidémica. En el neonato la PA cae tarde; no espere la hipotensión.'],
+['¿Primer paso?','Bolo de 10 mL/kg (31 mL) de SSN 0,9 % o Ringer lactato en 20–30 min y reevaluar: llenado capilar, FC, diuresis, lactato, POCUS. El VI poco lleno con buena contractilidad apoya que responderá a volumen. Si mejora, descenso escalonado; si no y el Hto sigue alto, segundo bolo; tope ≈ 30 mL/kg antes del vasoactivo.'],
+['Tras dos bolos el niño sigue taquicárdico y el Hto baja de 64 a 50 %. ¿Qué pasó?','Un Hto que cae con inestabilidad persistente no es éxito de la reanimación: es <b>hemorragia oculta</b> (digestiva, pulmonar, intracraneal). Glóbulos rojos 15 mL/kg (≈ 46 mL), no más cristaloide. Con sangrado activo, transfundir plaquetas (meta > 50 000) y corregir coagulación con plasma o crioprecipitado según TP, TTPa y fibrinógeno. Ecografía transfontanelar.'],
+['¿Qué no hacer?','Coloides, albúmina, corticoides o inmunoglobulina para el dengue (OMS 2025). Intubar sin preparar la inducción: puede precipitar el colapso.']],
+trap:'<b>Trampa:</b> haber dado el alta al día 2 a un hijo de madre febril periparto en plena epidemia. La fiebre materna sin diagnóstico se maneja como exposición posible.',
+load:{via:'vert',matWhen:'',matConf:'',matFever:true,peso:3100,eg:39,ddv:6,hto0:52,hto1:64,plq0:180,plq1:28,lac:4.8,diu:0.4,ck:['fiebre','leuco','letar','hep','fluid','lipo','taq','shockc','resp']}},
+
+{id:5,cls:'v3',tag:'Grave · atípico',title:'Cuando el volumen enferma',sub:'Miocarditis, hepatitis y una fiebre que no cede',
+vig:'Mujer de 35 semanas, 2400 g, día 7. Madre con dengue confirmado (NS1 +) que comenzó 1 día antes del parto. La niña debutó al día 3 con fiebre y plaquetopenia; hoy convulsiona (focal, brazo derecho), sangra por el cordón y por las punciones. FC 205, llenado capilar 4 s, PA 48/30. Hepatomegalia de 4 cm. POCUS: fracción de eyección del VI 35 %, derrame pericárdico leve, patrón B difuso. AST 1450, ALT 820, INR 2,1, fibrinógeno 90 mg/dL. Hto 50 → 47 %. Plaquetas 18 000. Lactato 5,2. Diuresis 0,5 mL/kg/h.',
+data:[['Peso / EG','2400 g · 35 sem'],['Día de vida','7'],['FE VI','35 %'],['AST / ALT','1450 / 820'],['INR / Fibrinógeno','2,1 / 90'],['Plaquetas','18 000']],
+qa:[
+['¿Cómo se clasifica?','<b>Dengue grave con daño de órgano</b>: miocarditis (FE 35 %, taquicardia desproporcionada), hepatitis grave (AST ≥ 1000), coagulopatía con sangrado activo y encefalopatía con convulsiones. Es una forma expandida.'],
+['¿Bolo de 10 mL/kg?','Con cautela extrema o ninguno. El problema dominante es la bomba: un VI con FE de 35 % y patrón B difuso empeora con volumen. Si se da algo, que sea 5 mL/kg con reevaluación ecográfica inmediata. Inotrópico precoz: epinefrina 0,05–0,3 µg/kg/min. Aquí el POCUS cambia todo el manejo.'],
+['¿Qué hemoderivados y por qué?','Hay sangrado activo: plaquetas 10–15 mL/kg (meta > 50 000; > 100 000 si la ecografía transfontanelar muestra hemorragia), plasma fresco 10–15 mL/kg por INR 2,1, crioprecipitado por fibrinógeno < 100 y vitamina K 1 mg IV. Ojo con el volumen de los productos en un corazón que falla: transfundir lento y valorar furosemida.'],
+['¿Y las convulsiones?','Descartar hipoglucemia, hiponatremia y hemorragia intracraneal antes de atribuirlas a encefalitis. RT‑PCR en LCR solo cuando la coagulación lo permita. Anticonvulsivante según el CDSS de status epiléptico.'],
+['Día 10: sigue febril, plaquetas 15 000, ferritina 8600, triglicéridos 420, fibrinógeno 80. ¿Qué piensa?','<b>Linfohistiocitosis hemofagocítica secundaria</b>: fiebre persistente, citopenias, ferritina muy alta, hipertrigliceridemia e hipofibrinogenemia; cuente los criterios HLH‑2004. Es la única situación de este espectro en que los corticoides (dexametasona) y eventualmente la inmunoglobulina tienen cabida, siempre con hematología.']],
+trap:'<b>Trampa:</b> aplicar el protocolo de choque por fuga a ciegas. En la miocarditis por dengue cada bolo innecesario empuja al niño hacia el edema pulmonar.',
+load:{via:'vert',matWhen:'w7',matConf:'ns1',peso:2400,eg:35,ddv:7,hto0:50,hto1:47,plq0:60,plq1:18,lac:5.2,diu:0.5,ck:['fiebre','leuco','letar','muc','hep','fluid','taq','shockh','bleed','organ']}}
+];
+function goTab(t){const b=document.querySelector(`#nav button[data-t="${t}"]`);b&&b.click()}
+$('#cases').innerHTML=CASES.map(c=>`<article class="case"><div class="ch ${c.cls}"><div class="cn">Caso ${c.id} · ${c.tag}</div><h3>${c.title}</h3><p>${c.sub}</p></div><div class="cb">
+<p class="vig">${c.vig}</p>
+<div class="data">${c.data.map(d=>`<div>${d[0]}<b>${d[1]}</b></div>`).join('')}</div>
+${c.qa.map(q=>`<details class="qa"><summary>${q[0]}</summary><div class="a">${q[1]}</div></details>`).join('')}
+<div class="trap">${c.trap}</div>
+<button class="btn block load" data-case="${c.id}">Cargar el caso en el evaluador →</button></div></article>`).join('');
+function loadCase(id){
+  const c=CASES.find(x=>x.id===id); if(!c)return; const L=c.load;
+  $$('#via button').forEach(b=>b.classList.toggle('on',b.dataset.v===L.via));
+  $('#matBox').style.display=(L.via==='vert'||L.via==='unk')?'block':'none';
+  $('#matWhen').value=L.matWhen||''; $('#matConf').value=L.matConf||'';
+  $('#matSev').checked=!!L.matSev; $('#matFever').checked=!!L.matFever;
+  ['peso','eg','ddv','hto0','hto1','plq0','plq1','lac','diu'].forEach(k=>$('#'+k).value=(L[k]!==undefined?L[k]:''));
+  $$('#t-eval .sx,#t-eval .al,#t-eval .sv').forEach(x=>x.checked=L.ck.includes(x.dataset.k));
+  $('#fPeso').value=L.peso/1000; $('#fEg').value=L.eg; $('#fDdv').value=L.ddv;
+  evalAll(); fluids(); goTab('t-eval');
+  setTimeout(()=>{const o=$('#out');o&&o.scrollIntoView({behavior:'smooth',block:'start'})},150);
+}
+$$('[data-case]').forEach(b=>b.addEventListener('click',()=>loadCase(+b.dataset.case)));
+$('#goCases').addEventListener('click',e=>{e.preventDefault();goTab('t-cas')});
 
 /* ---------- Copiar ---------- */
 $$('[data-copy]').forEach(b=>b.addEventListener('click',async()=>{
